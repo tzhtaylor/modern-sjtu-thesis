@@ -1,10 +1,39 @@
 #import "style.typ": zihao, ziti
 #import "@preview/numbly:0.1.0": numbly
 
+#let chapter-numbering(doctype) = {
+  numbly(
+    if doctype == "bachelor" {
+      "第{1:一}章 "
+    } else { "第{1}章 " },
+    "{1}.{2} ",
+    "{1}.{2}.{3} ",
+    "{1}.{2}.{3}.{4} ",
+  )
+}
+
+#let appendix-numbering(doctype) = {
+  if doctype == "bachelor" {
+    numbly(
+      "附录{1} ",
+      "{1}.{2} ",
+      "{1}.{2}.{3} ",
+      "{1}.{2}.{3}.{4} ",
+    )
+  } else {
+    numbly(
+      "附录{1:A} ",
+      "{1:A}.{2} ",
+      "{1:A}.{2}.{3} ",
+      "{1:A}.{2}.{3}.{4} ",
+    )
+  }
+}
+
 #let no-numbering-first-heading(body) = {
   show heading.where(level: 1): set align(center)
   show heading: set par(justify: false)
-  set heading(numbering: none, supplement: auto)
+  set heading(numbering: none)
   show heading.where(level: 1): it => {
     set text(
       // 数字用 Times Roman，中文用黑体，均为四号字，加粗
@@ -33,14 +62,7 @@
 ) = {
   show heading.where(level: 1): set align(center)
   set heading(
-    numbering: numbly(
-      if doctype == "bachelor" {
-        "第{1:一}章 "
-      } else { "第{1}章 " },
-      "{1}.{2} ",
-      "{1}.{2}.{3} ",
-      "{1}.{2}.{3}.{4} ",
-    ),
+    numbering: chapter-numbering(doctype),
   )
   show heading.where(level: 1): it => {
     set text(
@@ -76,22 +98,7 @@
 ) = {
   show heading.where(level: 1): set align(center)
   set heading(
-    numbering: if doctype == "bachelor" {
-      numbly(
-        "附录{1} ",
-        "{1}.{2} ",
-        "{1}.{2}.{3} ",
-        "{1}.{2}.{3}.{4} ",
-      )
-    } else {
-      numbly(
-        "附录{1:A} ",
-        "{1:A}.{2} ",
-        "{1:A}.{2}.{3} ",
-        "{1:A}.{2}.{3}.{4} ",
-      )
-    },
-    supplement: [附录],
+    numbering: appendix-numbering(doctype),
   )
   counter(heading).update(0)
   show heading.where(level: 1): it => {

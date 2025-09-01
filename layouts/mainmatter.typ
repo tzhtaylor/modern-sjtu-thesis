@@ -4,7 +4,7 @@
 #import "@preview/equate:0.3.2": *
 #import "../utils/style.typ": zihao, ziti
 #import "../utils/header.typ": main-text-page-header
-#import "../utils/heading.typ": main-text-first-heading, other-heading
+#import "../utils/heading.typ": appendix-numbering, main-text-first-heading, other-heading
 #import "../utils/figurex.typ": preset
 
 #let mainmatter(
@@ -73,7 +73,7 @@
         it.target,
         it.element.supplement
           + [ ]
-          + if h1.supplement == [附录] {
+          + if h1.numbering == appendix-numbering(doctype) {
             appendix-equation-label(heading-index, equation-index)
           } else {
             equation-label(heading-index, equation-index)
@@ -87,7 +87,7 @@
         it.target,
         it.element.supplement
           + [ ]
-          + if h1.supplement == [附录] {
+          + if h1.numbering == appendix-numbering(doctype) {
             appendix-equation-label(heading-index, equation-index)
           } else {
             equation-label(heading-index, equation-index)

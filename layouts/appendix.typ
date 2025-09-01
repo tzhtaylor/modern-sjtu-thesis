@@ -1,5 +1,5 @@
 #import "../utils/header.typ": appendix-page-header
-#import "../utils/heading.typ": appendix-first-heading, other-heading
+#import "../utils/heading.typ": appendix-first-heading, appendix-numbering, other-heading
 #import "@preview/i-figured:0.2.4"
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/equate:0.3.2": equate
@@ -41,7 +41,7 @@
       return it
     }
     let f = it.element.func()
-    let h1 = counter(heading.where(level: 1, supplement: [附录]).before(it.target)).get().first()
+    let h1 = counter(heading.where(level: 1, numbering: appendix-numbering(doctype)).before(it.target)).get().first()
     let main-h1 = counter(heading.where(level: 1).before(it.target)).get().first()
     let h1-last = query(heading.where().before(it.target)).last()
     if f == math.equation {
@@ -52,7 +52,7 @@
         it.target,
         it.element.supplement
           + [ ]
-          + if h1-last.supplement == [附录] {
+          + if h1-last.numbering == appendix-numbering(doctype) {
             equation-label(heading-index, equation-index)
           } else {
             mainmatter-equation-label(heading-index, equation-index)
@@ -67,7 +67,7 @@
         it.target,
         it.element.supplement
           + [ ]
-          + if h1-last.supplement == [附录] {
+          + if h1-last.numbering == appendix-numbering(doctype) {
             equation-label(heading-index, equation-index)
           } else {
             mainmatter-equation-label(heading-index, equation-index)

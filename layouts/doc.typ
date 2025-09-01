@@ -34,6 +34,8 @@
   set par(leading: 20pt, first-line-indent: (amount: 2em, all: true))
   show: show-cn-fakebold
 
+  show heading.where(level: 1): set heading(supplement: none)
+
   show figure: set align(center)
   show table: set align(center)
   show figure.caption: set par(leading: 10pt, justify: false)

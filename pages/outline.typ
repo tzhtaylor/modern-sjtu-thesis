@@ -1,4 +1,5 @@
 #import "../utils/style.typ": ziti, zihao
+#import "../utils/heading.typ": appendix-numbering
 #import "@preview/i-figured:0.2.4"
 
 #let outline-page(
@@ -20,7 +21,7 @@
 
   show outline.entry.where(level: 1): it => link(
     it.element.location(),
-    if doctype == "bachelor" and it.element.supplement == [附录] {
+    if doctype == "bachelor" and it.element.numbering == appendix-numbering(doctype) {
       it.indented(
         none,
         [
